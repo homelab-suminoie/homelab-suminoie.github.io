@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>HOME LAB 公開日 お申し込み</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{--ink:#1a1a18;--ash:#7a7670;--stone:#c8c4bc;--line:#e2dfd8;--paper:#f5f3ef;--white:#fdfcfa;--green:#5f7566;--amber:#b08a3e;--red:#a05252;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:560px;margin:0 auto;padding:0 18px 60px;}
+
+  header{text-align:center;padding:44px 0 30px;}
+  .brand{font-size:10px;letter-spacing:0.38em;color:var(--ash);text-transform:uppercase;margin-bottom:14px;}
+  .brandwrap{margin-bottom:16px;}
+  .brandwrap .logo{width:168px;max-width:60%;height:auto;display:inline-block;}
+  .brandwrap .logo .st0{fill:var(--ink);}
+  h1{font-size:21px;font-weight:600;letter-spacing:0.08em;line-height:1.5;}
+  h1 small{display:block;font-size:11px;letter-spacing:0.3em;color:var(--ash);font-weight:300;margin-top:9px;}
+  .rule{width:26px;height:1px;background:var(--stone);margin:22px auto 0;}
+
+  .event{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px 20px;margin-bottom:22px;}
+  .event .d{text-align:center;font-size:17px;font-weight:600;letter-spacing:0.05em;padding-bottom:16px;border-bottom:1px solid var(--line);}
+  .partline{display:flex;justify-content:space-between;align-items:baseline;padding:11px 2px 0;font-size:14px;}
+  .partline .pl{color:var(--ash);font-size:12.5px;letter-spacing:0.08em;}
+  .partline .pt{font-weight:600;letter-spacing:0.04em;}
+
+  .note{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:26px;}
+  .note h2{font-size:11px;letter-spacing:0.2em;color:var(--ash);font-weight:600;margin-bottom:11px;}
+  .note ol{margin:0;padding-left:1.15em;}
+  .note li{font-size:13px;line-height:1.85;color:var(--ink);margin-bottom:5px;}
+  .note li:last-child{margin-bottom:0;}
+  .note .em{background:linear-gradient(transparent 62%, #f2ead8 62%);font-weight:600;}
+
+  .f{margin-bottom:24px;}
+  .f > label{display:block;font-size:13px;font-weight:600;letter-spacing:0.04em;margin-bottom:8px;}
+  .req{font-size:10px;color:#fff;background:var(--red);border-radius:2px;padding:1px 6px;margin-left:8px;letter-spacing:0.06em;vertical-align:1.5px;}
+  .opt{font-size:10px;color:var(--ash);border:1px solid var(--stone);border-radius:2px;padding:0 6px;margin-left:8px;letter-spacing:0.06em;vertical-align:1.5px;}
+  .hint{font-size:12px;color:var(--ash);margin-top:6px;line-height:1.7;}
+  input[type=text],input[type=tel],input[type=email],input[type=number],select{
+    width:100%;border:1px solid var(--stone);border-radius:8px;padding:12px 13px;font-size:16px;
+    font-family:inherit;background:var(--white);color:var(--ink);appearance:none;}
+  input:focus,select:focus{outline:none;border-color:var(--ink);}
+
+  .parts{display:flex;flex-direction:column;gap:10px;}
+  .partcard{border:1px solid var(--stone);border-radius:10px;padding:15px 17px;cursor:pointer;background:var(--white);display:flex;justify-content:space-between;align-items:center;transition:border-color .15s;}
+  .partcard .t{font-size:16px;font-weight:600;letter-spacing:0.05em;}
+  .partcard .s{font-size:11.5px;color:var(--ash);letter-spacing:0.1em;margin-top:1px;}
+  .partcard .mk{width:19px;height:19px;border:1px solid var(--stone);border-radius:50%;flex:none;position:relative;}
+  .partcard.on{border-color:var(--ink);background:#fbfaf7;}
+  .partcard.on .mk{border-color:var(--ink);}
+  .partcard.on .mk:after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--ink);}
+
+  .pills{display:flex;gap:9px;}
+  .pill{flex:1;text-align:center;border:1px solid var(--stone);border-radius:8px;padding:11px 0;font-size:14px;cursor:pointer;background:var(--white);color:var(--ash);user-select:none;}
+  .pill.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600;}
+
+  .guest{border:1px solid var(--line);border-radius:10px;padding:13px 14px 14px;margin-bottom:9px;background:var(--white);}
+  .guest .gh{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+  .guest .gn{font-size:12px;font-weight:600;color:var(--ash);letter-spacing:0.08em;}
+  .guest .rm{font-size:11.5px;color:var(--stone);background:none;border:none;cursor:pointer;padding:2px 4px;font-family:inherit;}
+  .grow{display:flex;gap:9px;}
+  .grow > div:first-child{flex:1.35;}
+  .grow > div:last-child{flex:1;position:relative;}
+  .grow .unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--ash);pointer-events:none;}
+  .addbtn{width:100%;border:1px dashed var(--stone);background:none;border-radius:9px;padding:12px;font-size:13.5px;color:var(--ash);cursor:pointer;font-family:inherit;letter-spacing:0.04em;}
+  .addbtn:hover{border-color:var(--ash);color:var(--ink);}
+  .total{text-align:right;font-size:12.5px;color:var(--ash);margin-top:9px;}
+  .total b{color:var(--ink);font-size:15px;font-weight:600;}
+
+  .kids{background:#fbf9f4;border:1px solid #ece5d6;border-radius:8px;padding:11px 13px;font-size:12.5px;color:#7d6a45;line-height:1.75;margin-top:10px;}
+
+  .err{background:#fbf3f2;border:1px solid #e5c9c6;color:var(--red);font-size:13px;border-radius:8px;padding:12px 14px;margin-bottom:16px;display:none;line-height:1.8;}
+  .err.show{display:block;}
+
+  .submit{width:100%;border:none;border-radius:9px;padding:17px;font-size:16px;font-weight:600;letter-spacing:0.08em;background:var(--ink);color:#fff;cursor:pointer;font-family:inherit;margin-top:8px;}
+  .submit:disabled{background:var(--stone);cursor:wait;}
+  .agree{font-size:11.5px;color:var(--ash);text-align:center;margin-top:14px;line-height:1.8;}
+
+  .state{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:40px 24px;text-align:center;}
+  .state .ic{font-size:26px;margin-bottom:14px;}
+  .state h2{font-size:16px;font-weight:600;letter-spacing:0.06em;margin-bottom:10px;}
+  .state p{font-size:13.5px;color:var(--ash);line-height:1.9;}
+
+  .done .no{display:inline-block;border:1px solid var(--line);border-radius:8px;padding:13px 26px;margin:18px 0 20px;background:var(--paper);}
+  .done .no .lb{font-size:10px;letter-spacing:0.2em;color:var(--ash);}
+  .done .no .v{font-size:23px;font-weight:600;letter-spacing:0.12em;margin-top:2px;}
+  .done .flow{text-align:left;background:var(--paper);border-radius:9px;padding:16px 18px;margin-top:8px;}
+  .done .flow li{font-size:12.5px;color:var(--ink);line-height:1.85;margin-bottom:6px;}
+  .done .flow li:last-child{margin-bottom:0;}
+
+  footer{text-align:center;font-size:10px;color:var(--stone);letter-spacing:0.22em;margin-top:36px;}
+  #load{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink);z-index:99;display:none;animation:p 1s infinite;}
+  @keyframes p{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}
+</style>
+</head>
+<body>
+<div id="load"></div>
+
+<div class="wrap">
+  <header>
+    <div class="brandwrap"><svg class="logo" role="img" aria-label="HOME LAB" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 370 44" style="enable-background:new 0 0 370 44;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#221815;}
+</style>
+<path class="st0" d="M72.8060226,0C60.6658821,0,50.7901649,9.8686075,50.7901649,22s9.8757172,22,22.0158577,22
+	s22.0158539-9.8686066,22.0158539-22S84.9461517,0,72.8060226,0 M72.8060226,41.4211807
+	c-10.7169685,0-19.4351807-8.712986-19.4351807-19.4211826c0-10.7092514,8.7182121-19.4211845,19.4351807-19.4211845
+	s19.4351807,8.7119322,19.4351807,19.4211845C92.2411957,32.7081947,83.5229797,41.4211807,72.8060226,41.4211807"/>
+<path class="st0" d="M153.082077,4.3054008v16.4051895v2.5788174v16.4051876c0,0.7121239,0.577713,1.2894096,1.2903442,1.2894096
+	h36.2496185v-2.5788155h-34.9592896V23.2894077h32.2152252v-2.5788174h-32.2152252V5.5948091h34.9592896V3.0159929h-36.2496185
+	C153.6597748,3.0159929,153.082077,3.593277,153.082077,4.3054008"/>
+<path class="st0" d="M144.7254639,3.081306c-0.5292053-0.1738172-1.109024,0.0105345-1.4411011,0.4592991l-18.838501,25.4889851
+	L105.6073532,3.5406051c-0.332077-0.4487646-0.9129333-0.6341696-1.4410858-0.4592986
+	c-0.5292053,0.1738172-0.8876343,0.6678796-0.8876343,1.2240944V40.984005h2.5806732V8.2210302l17.5481644,23.7455482
+	c0.4880905,0.6594524,1.5897293,0.6594524,2.076767,0L143.0323944,8.222084V40.984005h2.5806732V4.3054008
+	C145.6130829,3.7491858,145.2546692,3.2551234,144.7254639,3.081306"/>
+<polygon class="st0" points="39.7527199,20.3587437 2.5796204,20.3587437 2.5796204,3.0170465 0,3.0170465 0,40.984005 
+	2.5796204,40.984005 2.5796204,22.9365063 39.7527199,22.9365063 39.7527199,40.984005 42.3333969,40.984005 42.3333969,22.9365063 
+	42.3333969,20.3587437 42.3333969,3.0170465 39.7527199,3.0170465 "/>
+<path class="st0" d="M232.7140198,3.0159929h-2.5806732v36.6786041c0,0.7121239,0.5787506,1.2894096,1.2892914,1.2894096h36.2496338
+	v-2.5798721h-34.958252V3.0159929z"/>
+<path class="st0" d="M365.7737122,22.0010529C368.2932739,20.2628803,370,16.9487648,370,13.152174
+	c0-5.5884881-3.6981201-10.1351271-8.2449036-10.1351271h-27.8170776c-0.7115784,0-1.2892761,0.5772839-1.2892761,1.2883546
+	v16.4051895v2.5788174v16.4062405c0,0.711071,0.5776978,1.2883568,1.2892761,1.2883568h27.8170776
+	C366.3018494,40.984005,370,36.4373627,370,30.848877C370,27.0522881,368.2932739,23.7360649,365.7737122,22.0010529
+	 M335.228363,5.5948091h26.5267334c3.1236267,0,5.6652527,3.3910165,5.6652527,7.557364s-2.541687,7.5563097-5.6652527,7.5563097
+	c-0.0084229,0-0.0168457,0.0021076-0.024231,0.0021076h-26.502533V5.5948091H335.228363z M361.755127,38.4051895h-26.5267334
+	V23.2894077h26.5098877c0.0052795,0,0.0105591,0.0021076,0.0168457,0.0021076c3.1236267,0,5.6652527,3.3899632,5.6652527,7.5573635
+	C367.4203796,35.0152245,364.8787231,38.4051895,361.755127,38.4051895"/>
+<path class="st0" d="M276.681427,40.9861145h3.0592957l5.3764038-8.4496269l31.5595093-0.1021843l5.0516968,8.5518112h2.9970703
+	L302.6684265,3.6470022c-0.2287598-0.3866119-0.6419983-0.6267955-1.0900269-0.6341696
+	c-0.4332886,0.009481-0.8707581,0.219115-1.1100769,0.5972991L276.681427,40.9861145z M301.5151367,6.7693925l13.6402588,23.0924149
+	l-28.3937378,0.09165L301.5151367,6.7693925z"/>
+</svg>
+</div>
+    <h1>公開日のご案内<small>OPEN DAY</small></h1>
+    <div class="rule"></div>
+  </header>
+
+  <div id="app"><div class="state"><p>読み込んでいます…</p></div></div>
+
+  <footer>SUMINOIE / HOME LAB</footer>
+</div>
+
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbwZ0Ofu-wrSI48kI5Cn_GZJXd8SmaRXz82Lu9B9wkiSrOdsHvhf6drUi9KaF4Jtatd7_w/exec';
+var INFO = null, GUESTS = [];
+
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
+function loadOn(){ el('load').style.display='block'; }
+function loadOff(){ el('load').style.display='none'; }
+
+function init(){
+  loadOn();
+  fetch(API + '?api=info')
+    .then(function(r){ return r.json(); })
+    .then(function(info){ INFO = info; loadOff(); render(); })
+    .catch(function(e){ loadOff(); el('app').innerHTML =
+      '<div class="state"><div class="ic">⚠</div><h2>読み込めませんでした</h2><p>お手数ですが、時間をおいて再度お試しください。</p></div>'; });
+}
+
+function render(){
+  if(INFO.phase === 'before'){
+    el('app').innerHTML = '<div class="state"><h2>受付開始前です</h2><p>お申し込みの受付は<br><b>'+fmtJ(INFO.applyFrom)+'</b> から開始いたします。<br>もうしばらくお待ちくださいませ。</p></div>';
+    return;
+  }
+  if(INFO.phase === 'closed'){
+    el('app').innerHTML = '<div class="state"><h2>受付を終了しました</h2><p>たくさんのお申し込みをありがとうございました。<br>当選された方には '+esc(INFO.callBy)+' までに<br>お電話にてご連絡いたします。</p></div>';
+    return;
+  }
+  el('app').innerHTML = formHtml();
+  GUESTS = [];
+  renderGuests();
+}
+
+function fmtJ(d){ var p=String(d).split('-'); return p[0]+'年'+Number(p[1])+'月'+Number(p[2])+'日'; }
+
+function formHtml(){
+  var partsHtml = INFO.parts.map(function(p){
+    return '<div class="partcard" data-v="'+p.id+'" onclick="pickPart(this)">'
+         + '<div><div class="t">'+esc(p.label)+'</div><div class="s">'+esc(p.time)+'</div></div>'
+         + '<div class="mk"></div></div>';
+  }).join('');
+
+  return ''
+  + '<div class="event">'
+  +   '<div class="d">'+esc(INFO.dateLabel)+'</div>'
+  +   INFO.parts.map(function(p){ return '<div class="partline"><span class="pl">'+esc(p.label)+'</span><span class="pt">'+esc(p.time)+'</span></div>'; }).join('')
+  + '</div>'
+
+  + '<div class="note"><h2>お申し込みについて</h2><ol>'
+  +   '<li><span class="em">ご応募多数の場合は抽選</span>とさせていただきます。</li>'
+  +   '<li>当選された方には、<b>'+esc(INFO.callBy)+'までにオーナーズデスクよりお電話</b>にてご連絡いたします。</li>'
+  +   '<li><span class="em">お電話にご応答いただいた時点でご予約確定</span>となります。恐れ入りますが、ご連絡がつかない場合は改めて別の方を抽選させていただきます。</li>'
+  +   '<li>お申し込みはお一組さま1回までとさせていただきます。</li>'
+  + '</ol></div>'
+
+  + '<div class="err" id="errBox"></div>'
+
+  + '<div class="f"><label>ご希望の部<span class="req">必須</span></label>'
+  +   '<div class="parts" id="p_part">'+partsHtml+'</div></div>'
+
+  + '<div class="f"><label>代表者さま お名前<span class="req">必須</span></label>'
+  +   '<input type="text" id="f_name" placeholder="例：山田 太郎" autocomplete="name"></div>'
+
+  + '<div class="f"><label>お電話番号<span class="req">必須</span></label>'
+  +   '<input type="tel" id="f_tel" placeholder="09012345678" autocomplete="tel" inputmode="numeric">'
+  +   '<div class="hint">当選のご連絡に使わせていただきます。日中つながりやすい番号をご記入ください。</div></div>'
+
+  + '<div class="f"><label>メールアドレス<span class="req">必須</span></label>'
+  +   '<input type="email" id="f_email" placeholder="example@mail.com" autocomplete="email" inputmode="email">'
+  +   '<div class="hint">受付内容の控えをお送りします。</div></div>'
+
+  + '<div class="f"><label>お住まい（市・区）<span class="req">必須</span></label>'
+  +   '<input type="text" id="f_city" placeholder="例：札幌市北区"></div>'
+
+  + '<div class="f"><label>お連れさま<span class="opt">任意</span></label>'
+  +   '<div id="guests"></div>'
+  +   '<button type="button" class="addbtn" onclick="addGuest()">＋ お連れさまを追加する</button>'
+  +   '<div class="total">ご参加人数　<b id="total">1</b> 名さま<span style="font-size:11px">（代表者さまを含む）</span></div>'
+  +   '<div class="kids">3歳以下のお子さまは<b>お食事のご用意はございません</b>が、ご一緒にお越しいただけます。お連れさまとしてご記入ください。</div>'
+  + '</div>'
+
+  + '<div class="f"><label>食物アレルギー<span class="req">必須</span></label>'
+  +   '<div class="pills" id="p_allergy">'
+  +     '<span class="pill on" data-v="なし" onclick="pickPill(\'p_allergy\',this)">なし</span>'
+  +     '<span class="pill" data-v="あり" onclick="pickPill(\'p_allergy\',this)">あり</span></div>'
+  +   '<input type="text" id="f_allergyDetail" placeholder="例：どなたが・何に（お子さま＝卵 など）" style="display:none;margin-top:10px;"></div>'
+
+  + '<button class="submit" id="btn" onclick="submit()">この内容で申し込む</button>'
+  + '<div class="agree">ご記入いただいた情報は、本イベントのご連絡・運営のみに使用いたします。</div>';
+}
+
+function pickPart(elm){
+  var box = el('p_part');
+  Array.prototype.forEach.call(box.querySelectorAll('.partcard'), function(c){ c.classList.remove('on'); });
+  elm.classList.add('on');
+}
+function partVal(){ var on = el('p_part').querySelector('.partcard.on'); return on ? on.dataset.v : null; }
+
+function pickPill(id, elm){
+  var box = el(id);
+  Array.prototype.forEach.call(box.querySelectorAll('.pill'), function(p){ p.classList.remove('on'); });
+  elm.classList.add('on');
+  if(id === 'p_allergy') el('f_allergyDetail').style.display = (elm.dataset.v === 'あり') ? 'block' : 'none';
+}
+function pillVal(id){ var on = el(id).querySelector('.pill.on'); return on ? on.dataset.v : null; }
+
+function addGuest(){
+  if(GUESTS.length >= 9){ return; }
+  GUESTS.push({ sex:'', age:'' });
+  renderGuests();
+}
+function removeGuest(i){ GUESTS.splice(i,1); renderGuests(); }
+
+function renderGuests(){
+  var h = GUESTS.map(function(g,i){
+    return '<div class="guest">'
+      + '<div class="gh"><span class="gn">お連れさま '+(i+1)+'</span>'
+      +   '<button type="button" class="rm" onclick="removeGuest('+i+')">削除</button></div>'
+      + '<div class="grow">'
+      +   '<div><select onchange="GUESTS['+i+'].sex=this.value">'
+      +     '<option value="">性別を選択</option>'
+      +     '<option value="女性"'+(g.sex==='女性'?' selected':'')+'>女性</option>'
+      +     '<option value="男性"'+(g.sex==='男性'?' selected':'')+'>男性</option>'
+      +     '<option value="その他"'+(g.sex==='その他'?' selected':'')+'>その他</option>'
+      +   '</select></div>'
+      +   '<div><input type="number" inputmode="numeric" min="0" max="120" placeholder="年齢" value="'+esc(g.age)+'" '
+      +     'oninput="GUESTS['+i+'].age=this.value"><span class="unit">歳</span></div>'
+      + '</div></div>';
+  }).join('');
+  el('guests').innerHTML = h;
+  el('total').textContent = 1 + GUESTS.length;
+}
+
+function submit(){
+  var p = {
+    part: partVal(),
+    name: el('f_name').value.trim(),
+    tel: el('f_tel').value.trim(),
+    email: el('f_email').value.trim(),
+    city: el('f_city').value.trim(),
+    guests: GUESTS.map(function(g){ return { sex:g.sex, age:g.age }; }),
+    allergy: pillVal('p_allergy'),
+    allergyDetail: el('f_allergyDetail').value.trim()
+  };
+  var errs = [];
+  if(!p.part) errs.push('ご希望の部をお選びください');
+  if(!p.name) errs.push('代表者さまのお名前をご入力ください');
+  var tel = p.tel.replace(/[^0-9]/g,'');
+  if(!tel) errs.push('お電話番号をご入力ください');
+  else if(tel.length < 10 || tel.length > 11) errs.push('お電話番号は10〜11桁でご入力ください');
+  if(!p.email) errs.push('メールアドレスをご入力ください');
+  else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) errs.push('メールアドレスの形式をご確認ください');
+  if(!p.city) errs.push('お住まい（市・区）をご入力ください');
+  GUESTS.forEach(function(g,i){
+    if(!g.sex) errs.push('お連れさま'+(i+1)+'の性別をお選びください');
+    if(g.age === '' || isNaN(Number(g.age))) errs.push('お連れさま'+(i+1)+'の年齢をご入力ください');
+  });
+  if(p.allergy === 'あり' && !p.allergyDetail) errs.push('アレルギーの内容をご入力ください');
+
+  var box = el('errBox');
+  if(errs.length){
+    box.innerHTML = errs.map(function(e){ return '・'+esc(e); }).join('<br>');
+    box.classList.add('show');
+    window.scrollTo({ top:0, behavior:'smooth' });
+    return;
+  }
+  box.classList.remove('show');
+  el('btn').disabled = true;
+  el('btn').textContent = '送信しています…';
+  loadOn();
+
+  fetch(API, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(p) })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      loadOff();
+      if(res && res.ok){ done(res); }
+      else {
+        el('btn').disabled = false;
+        el('btn').textContent = 'この内容で申し込む';
+        box.innerHTML = ((res && res.errors) || ['送信できませんでした']).map(function(e){ return '・'+esc(e); }).join('<br>');
+        box.classList.add('show');
+        window.scrollTo({ top:0, behavior:'smooth' });
+      }
+    })
+    .catch(function(e){
+      loadOff();
+      el('btn').disabled = false;
+      el('btn').textContent = 'この内容で申し込む';
+      box.innerHTML = '・通信エラーが発生しました。恐れ入りますが、もう一度お試しください。';
+      box.classList.add('show');
+    });
+}
+
+function done(res){
+  el('app').innerHTML =
+    '<div class="state done">'
+  + '<div class="ic">✓</div>'
+  + '<h2>お申し込みを受け付けました</h2>'
+  + '<div class="no"><div class="lb">受付番号</div><div class="v">'+esc(res.id)+'</div></div>'
+  + '<div class="flow"><ol style="margin:0;padding-left:1.15em">'
+  +   '<li>ご応募多数の場合は抽選とさせていただきます。</li>'
+  +   '<li>当選された方には <b>'+esc(INFO.callBy)+'まで</b>にオーナーズデスクよりお電話いたします。</li>'
+  +   '<li>お電話にご応答いただいた時点でご予約確定です。知らない番号からの着信となりますので、ご注意ください。</li>'
+  + '</ol></div>'
+  + (res.mailed ? '<p style="margin-top:16px;font-size:12.5px">ご入力のメールアドレス宛に、受付内容の控えをお送りしました。</p>' : '')
+  + '</div>';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
