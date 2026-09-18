@@ -147,7 +147,8 @@
 
 <script>
 var API = 'https://script.google.com/macros/s/AKfycbwZ0Ofu-wrSI48kI5Cn_GZJXd8SmaRXz82Lu9B9wkiSrOdsHvhf6drUi9KaF4Jtatd7_w/exec';
-var INFO = null, GUESTS = [];
+var INFO = null, GUESTS = [], KIDS = [];
+function phoneTxt(){ return (INFO && INFO.phone) ? INFO.phone : '0120-756-481'; }
 
 function el(id){ return document.getElementById(id); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
@@ -169,12 +170,12 @@ function render(){
     return;
   }
   if(INFO.phase === 'closed'){
-    el('app').innerHTML = '<div class="state"><h2>受付を終了しました</h2><p>たくさんのお申し込みをありがとうございました。<br>当選された方には '+esc(INFO.callBy)+' までに<br>お電話にてご連絡いたします。</p></div>';
+    el('app').innerHTML = '<div class="state"><h2>受付を終了しました</h2><p>たくさんのお申し込みをありがとうございました。<br>当選された方には '+esc(INFO.callBy)+' までに<br>オーナーズデスクより <b>'+esc(phoneTxt())+'</b> からお電話いたします。</p></div>';
     return;
   }
   el('app').innerHTML = formHtml();
-  GUESTS = [];
-  renderGuests();
+  GUESTS = []; KIDS = [];
+  renderGuests(); renderKids();
 }
 
 function fmtJ(d){ var p=String(d).split('-'); return p[0]+'年'+Number(p[1])+'月'+Number(p[2])+'日'; }
@@ -185,6 +186,10 @@ function formHtml(){
          + '<div><div class="t">'+esc(p.label)+'</div><div class="s">'+esc(p.time)+'</div></div>'
          + '<div class="mk"></div></div>';
   }).join('');
+  var anyP = INFO.anyPart || { id:'X', label:'どちらでも可' };
+  partsHtml += '<div class="partcard" data-v="'+esc(anyP.id)+'" onclick="pickPart(this)">'
+         + '<div><div class="t">'+esc(anyP.label)+'</div><div class="s">第1部・第2部いずれかで調整いたします</div></div>'
+         + '<div class="mk"></div></div>';
 
   return ''
   + '<div class="event">'
@@ -194,7 +199,7 @@ function formHtml(){
 
   + '<div class="note"><h2>お申し込みについて</h2><ol>'
   +   '<li><span class="em">ご応募多数の場合は抽選</span>とさせていただきます。</li>'
-  +   '<li>当選された方には、<b>'+esc(INFO.callBy)+'までにオーナーズデスクよりお電話</b>にてご連絡いたします。</li>'
+  +   '<li>当選された方には、<b>'+esc(INFO.callBy)+'までにオーナーズデスクより <span class="em">'+esc(phoneTxt())+'</span> からお電話</b>いたします。</li>'
   +   '<li><span class="em">お電話にご応答いただいた時点でご予約確定</span>となります。恐れ入りますが、ご連絡がつかない場合は改めて別の方を抽選させていただきます。</li>'
   +   '<li>お申し込みはお一組さま1回までとさせていただきます。</li>'
   + '</ol></div>'
@@ -207,6 +212,15 @@ function formHtml(){
   + '<div class="f"><label>代表者さま お名前<span class="req">必須</span></label>'
   +   '<input type="text" id="f_name" placeholder="例：山田 太郎" autocomplete="name"></div>'
 
+  + '<div class="f"><label>お名前（ふりがな）<span class="req">必須</span></label>'
+  +   '<input type="text" id="f_kana" placeholder="例：やまだ たろう" autocomplete="off"></div>'
+
+  + '<div class="f"><label>代表者さま 性別・年齢<span class="req">必須</span></label>'
+  +   '<div class="grow">'
+  +     '<div><select id="f_sex"><option value="">性別を選択</option><option value="女性">女性</option><option value="男性">男性</option><option value="その他">その他</option></select></div>'
+  +     '<div><input type="number" id="f_age" inputmode="numeric" min="0" max="120" placeholder="年齢"><span class="unit">歳</span></div>'
+  +   '</div></div>'
+
   + '<div class="f"><label>お電話番号<span class="req">必須</span></label>'
   +   '<input type="tel" id="f_tel" placeholder="09012345678" autocomplete="tel" inputmode="numeric">'
   +   '<div class="hint">当選のご連絡に使わせていただきます。日中つながりやすい番号をご記入ください。</div></div>'
@@ -218,11 +232,16 @@ function formHtml(){
   + '<div class="f"><label>お住まい（市・区）<span class="req">必須</span></label>'
   +   '<input type="text" id="f_city" placeholder="例：札幌市北区"></div>'
 
-  + '<div class="f"><label>お連れさま<span class="opt">任意</span></label>'
+  + '<div class="f"><label>お連れさま（大人）<span class="opt">任意</span></label>'
   +   '<div id="guests"></div>'
-  +   '<button type="button" class="addbtn" onclick="addGuest()">＋ お連れさまを追加する</button>'
+  +   '<button type="button" class="addbtn" onclick="addGuest()">＋ 大人のお連れさまを追加する</button></div>'
+
+  + '<div class="f"><label>お子さま<span class="opt">任意</span></label>'
+  +   '<div class="hint" style="margin:0 0 8px">ご一緒にお越しになるお子さまがいらっしゃる場合は、年齢をご入力ください。</div>'
+  +   '<div id="kids"></div>'
+  +   '<button type="button" class="addbtn" onclick="addKid()">＋ お子さまを追加する</button>'
   +   '<div class="total">ご参加人数　<b id="total">1</b> 名さま<span style="font-size:11px">（代表者さまを含む）</span></div>'
-  +   '<div class="kids">3歳以下のお子さまは<b>お食事のご用意はございません</b>が、ご一緒にお越しいただけます。お連れさまとしてご記入ください。</div>'
+  +   '<div class="kids">3歳以下のお子さまは<b>お食事のご用意はございません</b>が、ご一緒にお越しいただけます。</div>'
   + '</div>'
 
   + '<div class="f"><label>食物アレルギー<span class="req">必須</span></label>'
@@ -274,23 +293,52 @@ function renderGuests(){
       + '</div></div>';
   }).join('');
   el('guests').innerHTML = h;
-  el('total').textContent = 1 + GUESTS.length;
+  updTotal();
+}
+function updTotal(){ el('total').textContent = 1 + GUESTS.length + KIDS.length; }
+
+function addKid(){
+  if(KIDS.length >= 9){ return; }
+  KIDS.push('');
+  renderKids();
+}
+function removeKid(i){ KIDS.splice(i,1); renderKids(); }
+function renderKids(){
+  var h = KIDS.map(function(k,i){
+    return '<div class="guest">'
+      + '<div class="gh"><span class="gn">お子さま '+(i+1)+'</span>'
+      +   '<button type="button" class="rm" onclick="removeKid('+i+')">削除</button></div>'
+      + '<div class="grow"><div style="flex:1.35;display:flex;align-items:center;font-size:13px;color:var(--ash)">年齢</div>'
+      +   '<div><input type="number" inputmode="numeric" min="0" max="17" placeholder="年齢" value="'+esc(k)+'" '
+      +     'oninput="KIDS['+i+']=this.value"><span class="unit">歳</span></div>'
+      + '</div></div>';
+  }).join('');
+  el('kids').innerHTML = h;
+  updTotal();
 }
 
 function submit(){
   var p = {
     part: partVal(),
     name: el('f_name').value.trim(),
+    kana: el('f_kana').value.trim(),
+    sex: el('f_sex').value,
+    age: el('f_age').value.trim(),
     tel: el('f_tel').value.trim(),
     email: el('f_email').value.trim(),
     city: el('f_city').value.trim(),
     guests: GUESTS.map(function(g){ return { sex:g.sex, age:g.age }; }),
+    kids: KIDS.slice(),
     allergy: pillVal('p_allergy'),
     allergyDetail: el('f_allergyDetail').value.trim()
   };
   var errs = [];
   if(!p.part) errs.push('ご希望の部をお選びください');
   if(!p.name) errs.push('代表者さまのお名前をご入力ください');
+  if(!p.kana) errs.push('お名前（ふりがな）をご入力ください');
+  else if(!/^[ぁ-んゔゝゞー\s　]+$/.test(p.kana)) errs.push('ふりがなは、ひらがなでご入力ください');
+  if(!p.sex) errs.push('代表者さまの性別をお選びください');
+  if(p.age === '' || isNaN(Number(p.age)) || Number(p.age) < 0 || Number(p.age) > 120) errs.push('代表者さまの年齢をご入力ください');
   var tel = p.tel.replace(/[^0-9]/g,'');
   if(!tel) errs.push('お電話番号をご入力ください');
   else if(tel.length < 10 || tel.length > 11) errs.push('お電話番号は10〜11桁でご入力ください');
@@ -300,6 +348,9 @@ function submit(){
   GUESTS.forEach(function(g,i){
     if(!g.sex) errs.push('お連れさま'+(i+1)+'の性別をお選びください');
     if(g.age === '' || isNaN(Number(g.age))) errs.push('お連れさま'+(i+1)+'の年齢をご入力ください');
+  });
+  KIDS.forEach(function(k,i){
+    if(k === '' || isNaN(Number(k)) || Number(k) < 0 || Number(k) > 17) errs.push('お子さま'+(i+1)+'の年齢をご入力ください（0〜17）');
   });
   if(p.allergy === 'あり' && !p.allergyDetail) errs.push('アレルギーの内容をご入力ください');
 
@@ -345,8 +396,8 @@ function done(res){
   + '<div class="no"><div class="lb">受付番号</div><div class="v">'+esc(res.id)+'</div></div>'
   + '<div class="flow"><ol style="margin:0;padding-left:1.15em">'
   +   '<li>ご応募多数の場合は抽選とさせていただきます。</li>'
-  +   '<li>当選された方には <b>'+esc(INFO.callBy)+'まで</b>にオーナーズデスクよりお電話いたします。</li>'
-  +   '<li>お電話にご応答いただいた時点でご予約確定です。知らない番号からの着信となりますので、ご注意ください。</li>'
+  +   '<li>当選された方には <b>'+esc(INFO.callBy)+'まで</b>にオーナーズデスクより <b>'+esc(phoneTxt())+'</b> からお電話いたします。</li>'
+  +   '<li>お電話にご応答いただいた時点でご予約確定です。<b>'+esc(phoneTxt())+'</b> からの着信はHOME LABからのご連絡ですので、ご確認をお願いいたします。</li>'
   + '</ol></div>'
   + (res.mailed ? '<p style="margin-top:16px;font-size:12.5px">ご入力のメールアドレス宛に、受付内容の控えをお送りしました。</p>' : '')
   + '</div>';
