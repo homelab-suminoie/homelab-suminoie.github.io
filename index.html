@@ -383,7 +383,7 @@ function submit(){
       loadOff();
       el('btn').disabled = false;
       el('btn').textContent = 'この内容で申し込む';
-      box.innerHTML = '・通信エラーが発生しました。恐れ入りますが、もう一度お試しください。';
+      box.innerHTML = '・通信エラーが発生しました。<br>お申し込み自体は届いている場合があります。<b>ご入力のメールアドレスに受付控えが届いていれば、再送信は不要です。</b>届いていない場合のみ、少し時間をおいてもう一度お試しください。';
       box.classList.add('show');
     });
 }
