@@ -68,7 +68,7 @@ html,body{margin:0;background:var(--bg);color:var(--fg);font-family:'Noto Sans J
 const DEMO=[["10:00","七戸","HOME LAB 2F"],["11:00","山本","1F MT ROOM"],["11:30","佐藤","HOME LAB 2F"],["12:00","田中","HOME LAB 1F"],["13:30","鈴木","1F MT ROOM"],["15:00","高橋","HOME LAB 2F"],["16:30","伊藤","1F MT ROOM"]];
 const API='https://script.google.com/macros/s/AKfycbwoDsg5Rn7NSjDCUjevWeO-GtQLCx0RxcFyYoBqwJmkJIO6fKzAH7hK-e91P06vSO6C/exec';
 const DAYS=["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"];
-function fit(){const s=Math.min(innerWidth/1080,innerHeight/1920);document.getElementById('stage').style.transform='scale('+s+')';}
+function fit(){const s=Math.min(innerWidth/1080,innerHeight/1920);const st=document.getElementById('stage');st.style.transform='translate('+Math.max(0,(innerWidth-1080*s)/2)+'px,'+Math.max(0,(innerHeight-1920*s)/2)+'px) scale('+s+')';}
 function render(rows,dateStr){
   const list=document.getElementById('list'); list.innerHTML='';
   document.getElementById('date').textContent=dateStr;
