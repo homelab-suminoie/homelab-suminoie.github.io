@@ -1,0 +1,89 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=1080">
+<title>Welcome Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#27261F;--fg:#FFFFFD;--base:1080}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:'Noto Sans JP','Noto Sans CJK JP',sans-serif;height:100%;overflow:hidden}
+.stage{position:relative;width:1080px;height:1920px;transform-origin:0 0}
+.frame{position:absolute;inset:40px;border:1px solid rgba(255,255,253,.9)}
+.frame2{position:absolute;inset:52px;border:1px solid rgba(255,255,253,.45)}
+.wrap{position:absolute;inset:52px;padding:120px 84px 100px;box-sizing:border-box;display:flex;flex-direction:column}
+.head{display:flex;align-items:center;justify-content:center;gap:22px}
+.head .w{font-family:Montserrat,sans-serif;font-weight:300;font-size:58px;letter-spacing:.06em;white-space:nowrap}
+.head svg{height:44px;width:auto;fill:var(--fg)}
+.greet{margin-top:56px;text-align:center;font-weight:300;font-size:28px;letter-spacing:.22em;line-height:2}
+.rule{margin-top:70px;border-top:1px solid rgba(255,255,253,.15)}
+.date{margin-top:34px;font-family:Montserrat,sans-serif;font-weight:400;font-size:28px;letter-spacing:.2em}
+.list{margin-top:48px;flex:1;display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:180px 1fr auto;align-items:baseline;padding:34px 0;border-bottom:1px solid rgba(255,255,253,.12)}
+.time{font-family:Montserrat,sans-serif;font-weight:300;font-size:46px;letter-spacing:.02em}
+.name{font-size:46px;font-weight:400;letter-spacing:.1em}
+.name small{font-size:24px;font-weight:300;margin-left:40px;letter-spacing:.2em}
+.place{font-family:Montserrat,sans-serif;font-weight:400;font-size:22px;letter-spacing:.22em}
+.list.dense .row{padding:22px 0} .list.dense .time,.list.dense .name{font-size:38px}
+.empty{flex:1;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:26px;letter-spacing:.3em;opacity:.6}
+.foot{display:flex;justify-content:center;padding-top:40px}
+.foot svg{width:600px;height:auto;fill:var(--fg)}
+</style></head><body>
+<div class="stage" id="stage">
+ <div class="frame"></div><div class="frame2"></div>
+ <div class="wrap">
+  <div class="head"><span class="w">Welcome to</span><svg viewBox="0 0 370 44" aria-label="HOME LAB"><path d="M72.8060226,0C60.6658821,0,50.7901649,9.8686075,50.7901649,22s9.8757172,22,22.0158577,22
+	s22.0158539-9.8686066,22.0158539-22S84.9461517,0,72.8060226,0 M72.8060226,41.4211807
+	c-10.7169685,0-19.4351807-8.712986-19.4351807-19.4211826c0-10.7092514,8.7182121-19.4211845,19.4351807-19.4211845
+	s19.4351807,8.7119322,19.4351807,19.4211845C92.2411957,32.7081947,83.5229797,41.4211807,72.8060226,41.4211807"/>
+<path d="M153.082077,4.3054008v16.4051895v2.5788174v16.4051876c0,0.7121239,0.577713,1.2894096,1.2903442,1.2894096
+	h36.2496185v-2.5788155h-34.9592896V23.2894077h32.2152252v-2.5788174h-32.2152252V5.5948091h34.9592896V3.0159929h-36.2496185
+	C153.6597748,3.0159929,153.082077,3.593277,153.082077,4.3054008"/>
+<path d="M144.7254639,3.081306c-0.5292053-0.1738172-1.109024,0.0105345-1.4411011,0.4592991l-18.838501,25.4889851
+	L105.6073532,3.5406051c-0.332077-0.4487646-0.9129333-0.6341696-1.4410858-0.4592986
+	c-0.5292053,0.1738172-0.8876343,0.6678796-0.8876343,1.2240944V40.984005h2.5806732V8.2210302l17.5481644,23.7455482
+	c0.4880905,0.6594524,1.5897293,0.6594524,2.076767,0L143.0323944,8.222084V40.984005h2.5806732V4.3054008
+	C145.6130829,3.7491858,145.2546692,3.2551234,144.7254639,3.081306"/>
+<polygon points="39.7527199,20.3587437 2.5796204,20.3587437 2.5796204,3.0170465 0,3.0170465 0,40.984005 
+	2.5796204,40.984005 2.5796204,22.9365063 39.7527199,22.9365063 39.7527199,40.984005 42.3333969,40.984005 42.3333969,22.9365063 
+	42.3333969,20.3587437 42.3333969,3.0170465 39.7527199,3.0170465 "/>
+<path d="M232.7140198,3.0159929h-2.5806732v36.6786041c0,0.7121239,0.5787506,1.2894096,1.2892914,1.2894096h36.2496338
+	v-2.5798721h-34.958252V3.0159929z"/>
+<path d="M365.7737122,22.0010529C368.2932739,20.2628803,370,16.9487648,370,13.152174
+	c0-5.5884881-3.6981201-10.1351271-8.2449036-10.1351271h-27.8170776c-0.7115784,0-1.2892761,0.5772839-1.2892761,1.2883546
+	v16.4051895v2.5788174v16.4062405c0,0.711071,0.5776978,1.2883568,1.2892761,1.2883568h27.8170776
+	C366.3018494,40.984005,370,36.4373627,370,30.848877C370,27.0522881,368.2932739,23.7360649,365.7737122,22.0010529
+	 M335.228363,5.5948091h26.5267334c3.1236267,0,5.6652527,3.3910165,5.6652527,7.557364s-2.541687,7.5563097-5.6652527,7.5563097
+	c-0.0084229,0-0.0168457,0.0021076-0.024231,0.0021076h-26.502533V5.5948091H335.228363z M361.755127,38.4051895h-26.5267334
+	V23.2894077h26.5098877c0.0052795,0,0.0105591,0.0021076,0.0168457,0.0021076c3.1236267,0,5.6652527,3.3899632,5.6652527,7.5573635
+	C367.4203796,35.0152245,364.8787231,38.4051895,361.755127,38.4051895"/>
+<path d="M276.681427,40.9861145h3.0592957l5.3764038-8.4496269l31.5595093-0.1021843l5.0516968,8.5518112h2.9970703
+	L302.6684265,3.6470022c-0.2287598-0.3866119-0.6419983-0.6267955-1.0900269-0.6341696
+	c-0.4332886,0.009481-0.8707581,0.219115-1.1100769,0.5972991L276.681427,40.9861145z M301.5151367,6.7693925l13.6402588,23.0924149
+	l-28.3937378,0.09165L301.5151367,6.7693925z"/></svg></div>
+  <div class="greet">本日は、ようこそお越しくださいました。<br>ごゆっくりお過ごしください。</div>
+  <div class="rule"></div>
+  <div class="date" id="date">2026.10.06　TUESDAY</div>
+  <div class="list" id="list"></div>
+  <div class="foot"><svg viewBox="0 0 105.28 13.13" aria-label="suminoie"><path d="M7.73,2.42C6.76.33,5.02.2,4.38.2,2.31.2.8,1.47.8,3.62c0,.62.09,1.2.56,1.8.56.69,1.51,1.16,2.98,1.8,1.16.51,1.98.89,1.98,2.04,0,.91-.62,1.96-2,1.96-1.53,0-2.24-1.36-2.49-2l-1.82.78c1.02,3.07,3.78,3.13,4.29,3.13,2.36,0,4.22-1.44,4.22-4.02,0-.69-.11-1.33-.64-1.98-.47-.6-1.29-1.16-3.07-1.89-1.38-.6-1.98-.87-1.98-1.73,0-.96.71-1.38,1.47-1.38.8,0,1.42.53,1.71,1.24l1.73-.96ZM15.38.49h-2.13v7.38c0,1.51.16,2.62,1.11,3.69,1.09,1.16,2.53,1.53,3.76,1.53s2.67-.38,3.76-1.53c.98-1.07,1.11-2.18,1.11-3.69V.49h-2.13v7.13c0,.87,0,1.87-.6,2.62-.33.42-.98.96-2.16.96s-1.82-.53-2.16-.96c-.6-.78-.6-1.78-.6-2.62V.49h.04,0ZM45.87.49v12.25h2.13V.49h-2.13ZM39.36.76l-10.56-.76v2.02l10.56.76V.76ZM39.36,5.8l-10.56-.76v2.02l10.56.76v-2.02ZM39.36,10.87l-10.56-.76v2.02l10.56.76v-2.02ZM86.96.6v11.82h2.06V.6h-2.06ZM55.03,12.45h2.06v-6.2c0-.86.06-2.25.86-3.2.6-.71,1.37-.92,2.08-.92.92,0,1.54.34,1.93.86.49.62.54,1.46.54,2.17v7.27h2.06v-7.32c0-1.31-.09-2.27-.69-3.15-.71-1.05-2-1.63-3.39-1.63-1.97,0-3.02,1.16-3.39,1.65V.6h-2.06v11.84h0ZM75.74,12.77c3.58,0,6.26-2.62,6.26-6.22s-2.66-6.24-6.26-6.24-6.26,2.66-6.26,6.24,2.68,6.22,6.26,6.22ZM75.74,2.15c2.17,0,4.16,1.5,4.16,4.42s-2.02,4.4-4.16,4.4-4.16-1.48-4.16-4.4c.02-2.87,2.02-4.42,4.16-4.42ZM103.48,8.48c-.26.58-.69,1.16-1.22,1.63-.69.58-1.46.86-2.42.86-2.06,0-3.73-1.57-3.75-4.01h9.2c.06-1.57-.36-3.39-1.12-4.44-.71-1.03-2.17-2.17-4.48-2.17-3.56,0-5.73,2.75-5.73,6.26,0,4.4,2.98,6.18,5.84,6.18,1.5,0,2.85-.49,3.93-1.46.6-.54,1.12-1.24,1.46-1.91l-1.69-.94h0ZM96.2,5.22c.32-1.76,1.74-3.07,3.48-3.07s3.13,1.22,3.48,3.07h-6.95Z"/></svg></div>
+ </div>
+</div>
+<script>
+const DEMO=[["10:00","七戸","HOME LAB 2F"],["11:00","山本","1F MT ROOM"],["11:30","佐藤","HOME LAB 2F"],["12:00","田中","HOME LAB 1F"],["13:30","鈴木","1F MT ROOM"],["15:00","高橋","HOME LAB 2F"],["16:30","伊藤","1F MT ROOM"]];
+const API='https://script.google.com/macros/s/AKfycbwoDsg5Rn7NSjDCUjevWeO-GtQLCx0RxcFyYoBqwJmkJIO6fKzAH7hK-e91P06vSO6C/exec';
+const DAYS=["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"];
+function fit(){const s=Math.min(innerWidth/1080,innerHeight/1920);document.getElementById('stage').style.transform='scale('+s+')';}
+function render(rows,dateStr){
+  const list=document.getElementById('list'); list.innerHTML='';
+  document.getElementById('date').textContent=dateStr;
+  if(!rows.length){list.innerHTML='<div class="empty">本日のご予約はありません</div>';return;}
+  list.classList.toggle('dense',rows.length>8);
+  rows.forEach(r=>{const d=document.createElement('div');d.className='row';
+    d.innerHTML='<div class="time">'+esc(r[0])+'</div><div class="name">'+esc(r[1])+'<small>様</small></div><div class="place">'+esc(r[2])+'</div>';list.appendChild(d);});
+}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function todayStr(){const n=new Date();return n.getFullYear()+'.'+String(n.getMonth()+1).padStart(2,'0')+'.'+String(n.getDate()).padStart(2,'0')+'　'+DAYS[n.getDay()];}
+function load(){
+  if(location.search.includes('demo')){render(DEMO,'2026.10.06　TUESDAY');return;}
+  if(window.google&&google.script){google.script.run.withSuccessHandler(d=>render(d.rows||[],d.date||todayStr())).withFailureHandler(()=>{}).getToday();return;}
+  fetch(API+'?json=1&t='+Date.now()).then(r=>r.json()).then(d=>render(d.rows||[],d.date||todayStr())).catch(()=>{});
+}
+addEventListener('resize',fit);fit();load();setInterval(load,60000);
+setInterval(()=>{const h=new Date().getHours();if(h===4)location.reload();},3600000);
+</script></body></html>
