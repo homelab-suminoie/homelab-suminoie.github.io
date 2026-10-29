@@ -190,6 +190,15 @@ function formHtml(){
   partsHtml += '<div class="partcard" data-v="'+esc(anyP.id)+'" onclick="pickPart(this)">'
          + '<div><div class="t">'+esc(anyP.label)+'</div><div class="s">第1部・第2部いずれかで調整いたします</div></div>'
          + '<div class="mk"></div></div>';
+  var visits = INFO.visits || [
+    { id:'first', label:'今回が初めて' },
+    { id:'openday', label:'公開日に参加したことがある' },
+    { id:'cafe', label:'ランチ・カフェで利用したことがある' } ];
+  var visitsHtml = visits.map(function(v){
+    return '<div class="partcard" data-v="'+esc(v.id)+'" onclick="pickCard(\'p_visit\',this)">'
+         + '<div><div class="t" style="font-size:14.5px;font-weight:500">'+esc(v.label)+'</div></div>'
+         + '<div class="mk"></div></div>';
+  }).join('');
 
   return ''
   + '<div class="event">'
@@ -232,6 +241,10 @@ function formHtml(){
   + '<div class="f"><label>お住まい（市・区）<span class="req">必須</span></label>'
   +   '<input type="text" id="f_city" placeholder="例：札幌市北区"></div>'
 
+  + '<div class="f"><label>HOME LAB へのご来訪<span class="req">必須</span></label>'
+  +   '<div class="hint" style="margin:0 0 8px">HOME LAB（1F DAIDOCORO）にいらしたことはありますか？</div>'
+  +   '<div class="parts" id="p_visit">'+visitsHtml+'</div></div>'
+
   + '<div class="f"><label>お連れさま（大人）<span class="opt">任意</span></label>'
   +   '<div id="guests"></div>'
   +   '<button type="button" class="addbtn" onclick="addGuest()">＋ 大人のお連れさまを追加する</button></div>'
@@ -260,6 +273,12 @@ function pickPart(elm){
   elm.classList.add('on');
 }
 function partVal(){ var on = el('p_part').querySelector('.partcard.on'); return on ? on.dataset.v : null; }
+function pickCard(id, elm){
+  var box = el(id);
+  Array.prototype.forEach.call(box.querySelectorAll('.partcard'), function(c){ c.classList.remove('on'); });
+  elm.classList.add('on');
+}
+function cardVal(id){ var on = el(id).querySelector('.partcard.on'); return on ? on.dataset.v : null; }
 
 function pickPill(id, elm){
   var box = el(id);
@@ -327,6 +346,7 @@ function submit(){
     tel: el('f_tel').value.trim(),
     email: el('f_email').value.trim(),
     city: el('f_city').value.trim(),
+    visit: cardVal('p_visit'),
     guests: GUESTS.map(function(g){ return { sex:g.sex, age:g.age }; }),
     kids: KIDS.slice(),
     allergy: pillVal('p_allergy'),
@@ -345,6 +365,7 @@ function submit(){
   if(!p.email) errs.push('メールアドレスをご入力ください');
   else if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) errs.push('メールアドレスの形式をご確認ください');
   if(!p.city) errs.push('お住まい（市・区）をご入力ください');
+  if(!p.visit) errs.push('HOME LAB へのご来訪経験をお選びください');
   GUESTS.forEach(function(g,i){
     if(!g.sex) errs.push('お連れさま'+(i+1)+'の性別をお選びください');
     if(g.age === '' || isNaN(Number(g.age))) errs.push('お連れさま'+(i+1)+'の年齢をご入力ください');
